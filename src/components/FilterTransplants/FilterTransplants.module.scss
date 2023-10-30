@@ -1,0 +1,83 @@
+.aviasales__options {
+  width: 232px;
+  height: 252px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+
+.aviasales__filter {
+  padding-top: 20px;
+}
+
+.aviasales__filter-header {
+  text-align: left;
+  color: rgba(74, 74, 74, 1);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding-left: 20px;
+  margin: 0px;
+}
+
+.box-checkbox {
+padding-left: 0px;
+}
+
+.aviasales__transfer-checkbox-container {
+  list-style: none;
+  display: flex;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+
+.aviasales__transfer-checkbox-container:hover {
+  cursor: pointer;
+  background-color: rgba(241, 252, 255, 1);
+}
+
+.checkbox-filter {
+
+}
+
+.checkbox-filter__checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  border: none;
+}
+
+#transfer-all {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+  border-radius: 2px;
+  border: 2px solid rgba(154, 187, 206, 1);
+}
+
+#transfer-all:checked::before {
+  content: '\2714';
+  position: absolute;
+  transform: translate(3px, -2px);
+  font-size:14px;
+  color: 
+  rgba(33, 150, 243, 1);
+}
+#transfer-all:checked {
+   border: 2px solid rgba(33, 150, 243, 1);
+}
+
+.checkbox-filter__label {
+  display: flex;
+  align-items: center;
+  font-size:13px;
+}

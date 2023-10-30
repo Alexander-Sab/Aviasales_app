@@ -1,0 +1,52 @@
+@import-normalize;
+
+$color: red;
+
+body {
+  background-color: rgba(243, 247, 250, 1);
+}
+
+.aviasales-container {
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.aviasales {
+}
+
+.logo {
+  width: 60px;
+  height: 70px;
+  background-image: url('../../../public/img/Logo.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-bottom: 50px;
+  margin: 0 auto;
+  animation: fly-in 1s ease-in-out;
+}
+
+@keyframes fly-in {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media(min-width: 768px) {
+.filterTransplants {
+  max-width: 768px;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+}
+
+.airTickets {
+  margin: 0 auto;
+  margin-left: 10px;
+}
