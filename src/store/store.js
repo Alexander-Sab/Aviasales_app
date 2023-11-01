@@ -1,15 +1,12 @@
-import { createStore, combineReducers } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
+import thunk from 'redux-thunk'
 
-import counterReducer from './counterReducer'
-import sortReducer from './sortReducer'
-import checkboxReducer from './checkboxReducer'
+import rootReducer from './rootReducer'
 
-const rootReducer = combineReducers({
-  counter: counterReducer,
-  sort: sortReducer,
-  checkboxes: checkboxReducer,
-  // Другие редюсеры, если есть
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  devTools: true,
 })
 
-const store = createStore(rootReducer)
 export default store

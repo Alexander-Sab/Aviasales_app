@@ -1,20 +1,14 @@
-const initialState = {
-  sortType: 'default', // тип сортировки по умолчанию
-}
+import { createSlice } from '@reduxjs/toolkit'
 
-const sortReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SET_SORT_TYPE':
-      return {
-        ...state,
-        sortType: action.payload,
-      }
-    default:
-      return state
-  }
-}
-export const setSortType = (sortType) => ({
-  type: 'SET_SORT_TYPE',
-  payload: sortType,
+const sortSlice = createSlice({
+  name: 'sort',
+  initialState: { sortType: 'default' },
+  reducers: {
+    setSortType: (state, action) => {
+      state.sortType = action.payload
+    },
+  },
 })
-export default sortReducer
+
+export const { setSortType } = sortSlice.actions
+export default sortSlice.reducer

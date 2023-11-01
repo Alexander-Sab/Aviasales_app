@@ -1,12 +1,22 @@
 import clsx from 'clsx'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { getTickets } from '../../store/actions'
 
 import classes from './AviasalesTicket.module.scss'
 
 export const AviasalesTicket = () => {
+  const tickets = useSelector((state) => state.tickets)
+  console.log(tickets)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getTickets())
+  }, [dispatch])
   return (
     <section className={clsx(classes.aviasales__ticket, classes.ticket)}>
       <div className={clsx(classes.ticket__header)}>
-        <div className={clsx(classes.ticket__price)}>13 370 P</div>
+        <div className={clsx(classes.ticket__price)}>ticket.price</div>
         <img
           className={clsx(classes.ticket__img)}
           src="https://pics.avs.io/99/36/UT.png"

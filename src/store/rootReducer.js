@@ -1,10 +1,13 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from '@reduxjs/toolkit'
 
 import sortReducer from './sortReducer'
+import checkboxReducer from './checkboxReducer'
+import ticketsReducer from './ticketReducer'
 
 const rootReducer = combineReducers({
   sort: sortReducer,
-  // Другие редьюсеры, если есть
+  checkboxes: checkboxReducer,
+  tickets: ticketsReducer,
 })
 
 export default rootReducer
