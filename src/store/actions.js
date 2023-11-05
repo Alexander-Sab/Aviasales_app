@@ -6,31 +6,24 @@ export const fetchTickets = () => async (dispatch) => {
   try {
     const searchIdResponse = await axios.get(`${baseUrl}/search`)
     const { searchId } = searchIdResponse.data
-
     let tickets = []
     let stop = false
-
     while (!stop) {
       try {
         const ticketsResponse = await axios.get(
           `${baseUrl}/tickets?searchId=${searchId}`,
         )
-
-        if (!ticketsResponse.data.ok) {
-          throw new Error('Ошибка при получении билетов')
-        }
-
         const { tickets: newTickets, stop: newStop } = ticketsResponse.data
         tickets = [...tickets, ...newTickets]
         stop = newStop
       } catch (error) {
-        // Игнорирование ошибки net::ERR_CONNECTION_TIMED_OUT
-        if (error.code !== 'ECONNABORTED') {
+        // Игнорирование ошибки net::ERR_CONNECTION_TIMED_OUT и ошибки с кодом 500
+        if (error.code !== 'ECONNABORTED' && error.response.status !== 500) {
           throw error
         }
       }
     }
-
+    console.log('tickets:', tickets) // Вывод всех билетов в консоль
     dispatch({ type: 'FETCH_TICKETS_SUCCESS', payload: tickets })
   } catch (error) {
     dispatch({ type: 'FETCH_TICKETS_FAILURE', payload: error.message })

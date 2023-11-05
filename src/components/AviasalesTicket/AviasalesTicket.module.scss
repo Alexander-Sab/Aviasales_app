@@ -15,6 +15,46 @@
     }
 }
 
+.aviasales__ticket-error {
+    width: 290px;
+    display: block;
+    border-radius: 5px;
+    border: 2px solid #FFC634;
+    background-color: rgba(255, 255, 255, 1);
+    padding-bottom: 20px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+@media(min-width: 768px) {
+    .aviasales__ticket-error {
+       width: 502px;
+       display: flex;
+       justify-content: space-between;
+       gap: 15px;
+       padding: 15;
+       
+    }
+    .aviasales__ticket-error__text {
+        text-transform: none;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 17px;
+        color: #4a4a4a;
+        letter-spacing: 0.5px;
+    }
+    .viasales__ticket-error__icons {
+        width: 60px;
+        height: 91px;
+        background-color: rgba(255, 255, 255, 1);
+        background-image: url("../../../public/img/error.svg") ;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 50px;
+        flex-shrink: 0;
+    }
+}
+
 .ticket {
 
 }
