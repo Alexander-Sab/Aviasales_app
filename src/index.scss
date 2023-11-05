@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+#Aviasales {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #4a4a4a;
+  letter-spacing: 0.5px;
+  min-width: 520px;
+
+  .boxShadow {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .borderRadius {
+    border-radius: 5px;
+  }
+}

@@ -1,0 +1,43 @@
+.Notification {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 15px;
+    gap: 15px;
+    box-sizing: border-box;
+
+    &.alert {
+        border: 1px solid #f44336;
+        .mark {
+            border: 1px solid #f44336;
+        }
+    }
+    &.notify {
+        border: 1px solid #ffc107;
+        .mark {
+            border: 1px solid #ffc107;
+        }
+    }
+
+    .mark {
+        aspect-ratio: 1/1;
+        width: 60px;
+        height: 60px;        
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+    }
+
+    .text {
+        text-transform: none;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 17px;
+    }
+}

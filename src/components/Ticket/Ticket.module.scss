@@ -1,0 +1,98 @@
+@keyframes ph-animation {
+  0% {   
+    filter: grayscale(0);
+  }
+  100% {
+    filter: grayscale(.4);
+  }
+}
+
+%placeholder-item {
+  background-color: #DFE5EC;
+  color: transparent;
+  filter:blur(2px);
+  border-radius: 5px;
+  animation: ph-animation 0.8s alternate infinite ease;
+}
+
+.Ticket {
+  width: 460px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 20px;
+
+  &.Placeholder {
+    .header {
+      .price {
+        @extend %placeholder-item;
+        width: 170px;
+      }
+      .logo {
+        @extend %placeholder-item;
+        
+      }
+    }
+    .sections { 
+      @extend %placeholder-item; 
+      min-height: 50px;
+    }
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+
+    .price {
+      font-size: 2rem;
+      color: #2196f3;
+    }
+
+    .logo {
+      height: 35px;
+      width: 150px;
+      object-fit: contain;
+    }
+  }
+
+  .sections {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 10px;
+
+    .section {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-content: flex-start;
+      justify-content: space-between;
+      align-items: flex-start;
+      line-height: 20px;
+      font-size: 14px;
+
+      .item {
+        flex-basis: 30%;
+        flex-shrink: 1;
+
+        .label {
+          color: #a0b0b9;
+        }
+        .duration {
+          text-transform: none;
+        }
+      }
+    }
+  }
+}
