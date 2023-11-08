@@ -19,10 +19,10 @@ const checkboxReducer = (state = initialState, action) => {
       return {
         ...state,
         all: allCheckboxValue,
-        withoutTransfers: allCheckboxValue,
-        oneTransfer: allCheckboxValue,
-        twoTransfers: allCheckboxValue,
-        threeTransfers: allCheckboxValue,
+        withoutTransfers: allCheckboxValue || state.withoutTransfers,
+        oneTransfer: allCheckboxValue || state.oneTransfer,
+        twoTransfers: allCheckboxValue || state.twoTransfers,
+        threeTransfers: allCheckboxValue || state.threeTransfers,
       }
     }
     default:

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { v1 as uuidv1 } from 'uuid'
 
 const baseUrl = 'https://aviasales-test-api.kata.academy'
 
@@ -14,7 +15,11 @@ export const fetchTickets = () => async (dispatch) => {
           `${baseUrl}/tickets?searchId=${searchId}`,
         )
         const { tickets: newTickets, stop: newStop } = ticketsResponse.data
-        tickets = [...tickets, ...newTickets]
+        const ticketsWithId = newTickets.map((ticket) => ({
+          ...ticket,
+          id: uuidv1(),
+        }))
+        tickets = [...tickets, ...ticketsWithId]
         stop = newStop
       } catch (error) {
         // Игнорирование ошибки net::ERR_CONNECTION_TIMED_OUT и ошибки с кодом 500
@@ -23,7 +28,7 @@ export const fetchTickets = () => async (dispatch) => {
         }
       }
     }
-    console.log('tickets:', tickets) // Вывод всех билетов в консоль
+    //console.log('tickets:', tickets) // Вывод всех билетов в консоль
     dispatch({ type: 'FETCH_TICKETS_SUCCESS', payload: tickets })
   } catch (error) {
     dispatch({ type: 'FETCH_TICKETS_FAILURE', payload: error.message })

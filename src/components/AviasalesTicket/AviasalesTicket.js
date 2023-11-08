@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { v1 as uuidv1 } from 'uuid'
 import { format, add } from 'date-fns'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,10 +9,12 @@ import { getTickets } from '../../store/actions'
 import classes from './AviasalesTicket.module.scss'
 
 export const AviasalesTicket = () => {
-  const { tickets } = useSelector((state) => state.tickets)
+  const { tickets, loading, error } = useSelector((state) => state.tickets)
+  console.log('AviasalesTicket - tickets', tickets)
   const [isTicketsLoading, setIsTicketsLoading] = useState(true)
-  console.log(tickets)
+  const selectedFilters = useSelector((state) => state.checkboxes)
   const dispatch = useDispatch()
+
   useEffect(() => {
     const fetchTickets = async () => {
       try {
@@ -22,54 +25,60 @@ export const AviasalesTicket = () => {
         setIsTicketsLoading(false)
       }
     }
-
     fetchTickets()
-  }, [dispatch])
+  }, [dispatch, selectedFilters])
+  // Фильтер билетов
 
-  const firstFiveTickets = tickets.slice(0, 5) // Ограничение до первых пяти билетов
-  // фильтр
-  const [selectedFilters, setSelectedFilters] = useState({
-    all: true,
-    withoutTransfers: true,
-    oneTransfer: true,
-    twoTransfers: true,
-    threeTransfers: true,
-  })
-
-  const [sortType, setSortType] = useState('default')
-  // Фильтрация билетов
-  const filteredTickets = tickets.filter((ticket) => {
-    // Применение фильтров
-    if (selectedFilters.all) {
-      return true
-    }
-    return selectedFilters[ticket.transfers.length]
-  })
-
-  // Сортировка билетов
-  const sortedTickets = filteredTickets.sort((a, b) => {
-    if (sortType === 'price') {
-      return a.price - b.price
-    } else if (sortType === 'duration') {
-      return (
-        a.segments.reduce(
-          (totalDuration, segment) => totalDuration + segment.duration,
-          0,
-        ) -
-        b.segments.reduce(
-          (totalDuration, segment) => totalDuration + segment.duration,
-          0,
-        )
+  const filteredTickets = (allTickets, activeFilters) =>
+    allTickets.filter((ticket) => {
+      const transfersCountForBothSegments = ticket.segments.map(
+        (segment) => segment.stops.length,
       )
-    }
-    return 0
-  })
+      // console.log(
+      //   'transfersCountForBothSegments',
+      //   transfersCountForBothSegments,
+      // )
+      if (
+        activeFilters &&
+        activeFilters.withoutTransfers &&
+        transfersCountForBothSegments.every((count) => count === 0)
+      ) {
+        return true
+      }
+      if (
+        activeFilters &&
+        activeFilters.oneTransfer &&
+        transfersCountForBothSegments.every((count) => count === 1)
+      ) {
+        return true
+      }
+      if (
+        activeFilters &&
+        activeFilters.twoTransfers &&
+        transfersCountForBothSegments.every((count) => count === 2)
+      ) {
+        return true
+      }
+      if (
+        activeFilters &&
+        activeFilters.threeTransfers &&
+        transfersCountForBothSegments.every((count) => count === 3)
+      ) {
+        return true
+      }
+      return false
+    })
 
-  // Отображение билетов
-
+  // Сохраняем отфильтрованные билеты в переменную
+  const filtered = filteredTickets(tickets, selectedFilters)
+  console.log('filtered', filtered)
   return (
     <>
-      {firstFiveTickets.length === 0 ? (
+      {isTicketsLoading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error: {error.message}</div>
+      ) : filtered.length === 0 ? (
         <div className={clsx(classes['aviasales__ticket-error'])}>
           <div className={clsx(classes['viasales__ticket-error__icons'])}></div>
           <p className={clsx(classes['aviasales__ticket-error__text'])}>
@@ -79,8 +88,7 @@ export const AviasalesTicket = () => {
         </div>
       ) : (
         <>
-          {firstFiveTickets.map((ticket) => {
-            // Время 1
+          {filtered.map((ticket) => {
             const departureTime1 = format(
               new Date(ticket.segments[0].date),
               'HH:mm',
@@ -103,19 +111,39 @@ export const AviasalesTicket = () => {
               'HH:mm',
             )
             const formattedTimeRange2 = `${departureTime2} – ${arrivalTime2}`
-            // Время 2
             const duration1 = ticket.segments[0].duration
             const hours1 = Math.floor(duration1 / 60)
             const minutes1 = duration1 % 60
             const formattedDuration1 = `${hours1}ч ${minutes1}м`
-            const duration2 = ticket.segments[0].duration
+            const duration2 = ticket.segments[1].duration
             const hours2 = Math.floor(duration2 / 60)
             const minutes2 = duration2 % 60
             const formattedDuration2 = `${hours2}ч ${minutes2}м`
-
+            let stopsText1 = ''
+            const stopsCount1 = ticket.segments[0].stops.length
+            if (stopsCount1 === 0) {
+              stopsText1 = 'нет пересадок'
+            } else if (stopsCount1 === 1) {
+              stopsText1 = '1 пересадка'
+            } else if (stopsCount1 === 2) {
+              stopsText1 = '2 пересадки'
+            } else if (stopsCount1 === 3) {
+              stopsText1 = '3 пересадки'
+            }
+            let stopsText2 = ''
+            const stopsCount2 = ticket.segments[1].stops.length
+            if (stopsCount2 === 0) {
+              stopsText2 = 'нет пересадок'
+            } else if (stopsCount2 === 1) {
+              stopsText2 = '1 пересадка'
+            } else if (stopsCount2 === 2) {
+              stopsText2 = '2 пересадки'
+            } else if (stopsCount2 === 3) {
+              stopsText2 = '3 пересадки'
+            }
             return (
               <section
-                key={`${ticket.price}`}
+                key={uuidv1()}
                 className={clsx(classes.aviasales__ticket, classes.ticket)}
               >
                 <div className={clsx(classes.ticket__header)}>
@@ -158,7 +186,7 @@ export const AviasalesTicket = () => {
                     <div
                       className={clsx(classes['ticket__section-info--name'])}
                     >
-                      2 пересадки
+                      {stopsText1}
                     </div>
                     <div
                       className={clsx(classes['ticket__section-info--value'])}
@@ -167,7 +195,6 @@ export const AviasalesTicket = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className={clsx(classes.ticket__section)}>
                   <div className={clsx(classes['ticket__section-info'])}>
                     <div
@@ -198,7 +225,7 @@ export const AviasalesTicket = () => {
                     <div
                       className={clsx(classes['ticket__section-info--name'])}
                     >
-                      1 пересадки
+                      {stopsText2}
                     </div>
                     <div
                       className={clsx(classes['ticket__section-info--value'])}

@@ -1,6 +1,7 @@
-import { useSelector, useDispatch } from 'react-redux'
 import clsx from 'clsx'
+import { useSelector, useDispatch } from 'react-redux'
 
+import { getTickets } from '../../store/actions'
 import {
   setCheckboxValue,
   toggleAllCheckbox,
@@ -14,30 +15,24 @@ export const FilterTransplants = () => {
 
   const handleCheckboxChange = (checkboxName) => {
     if (checkboxName === 'all') {
-      if (checkboxes.all) {
-        // Если галочка "Все" была включена и снимается, снимаем все остальные галочки
-        dispatch(toggleAllCheckbox(false))
-      } else {
-        // Если галочка "Все" была выключена и включается, проставляем все остальные галочки
-        dispatch(toggleAllCheckbox(true))
-      }
+      dispatch(toggleAllCheckbox(!checkboxes.all))
     } else {
       const newValue = !checkboxes[checkboxName]
       dispatch(setCheckboxValue(checkboxName, newValue))
-
-      // Если включается любая другая галочка при включенной галочке "Все", снимаем галочку "Все"
-      if (checkboxes.all) {
-        dispatch(toggleAllCheckbox(false))
+      if (checkboxName === 'withoutTransfers') {
+        dispatch(setCheckboxValue('withoutTransfers', newValue))
       }
-
-      // Если проставлены все остальные галочки, включаем галочку "Все"
-      const allChecked = Object.keys(checkboxes).every(
-        (checkbox) => checkboxes[checkbox],
-      )
-      if (allChecked) {
-        dispatch(toggleAllCheckbox(true))
+      if (checkboxName === 'oneTransfer') {
+        dispatch(setCheckboxValue('oneTransfer', newValue))
+      }
+      if (checkboxName === 'twoTransfers') {
+        dispatch(setCheckboxValue('twoTransfers', newValue))
+      }
+      if (checkboxName === 'threeTransfers') {
+        dispatch(setCheckboxValue('threeTransfers', newValue))
       }
     }
+    dispatch(getTickets())
   }
 
   const checkboxItems = [
