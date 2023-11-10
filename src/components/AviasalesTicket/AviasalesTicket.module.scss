@@ -1,3 +1,31 @@
+.aviasales__ticket-large {
+    width: 290px;
+    display: block;
+    border-radius: 5px;
+    border: 2px solid;
+    border-image: linear-gradient(to right, rgba(255, 0, 0, 1), rgba(0, 255, 0, 1), rgba(0, 0, 255, 1));
+    border-image-slice: 1;
+    background-color: rgba(243, 247, 250, 1);
+    padding-bottom: 20px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+
+@media(min-width: 768px) {
+    .aviasales__ticket-large {
+       width: 502px;
+       height: 100px;
+       margin: 0 auto;
+       display: flex;
+       align-items: center;
+    }
+}
+
+.aviasales__ticket-large__spin {
+    padding-top: 15px;
+     margin: 0 auto;
+}
+
 .aviasales__ticket-error {
     width: 290px;
     display: block;
@@ -35,5 +63,30 @@
         background-position: center;
         background-size: 50px;
         flex-shrink: 0;
+    }
+}
+
+.aviasales__show-more {
+    width: 290px;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(33, 150, 243, 1);
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+@media(min-width: 768px) {
+    .aviasales__show-more {
+        width: 502px;
     }
 }

@@ -1,11 +1,11 @@
 import clsx from 'clsx'
+import { Spin } from 'antd'
 import { v1 as uuidv1 } from 'uuid'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getTickets } from '../../store/actions'
 import AviasalesTicketList from '../AviasalesTicketList'
-import { setSelectedFilter } from '../../store/filtersSlice'
 
 import classes from './AviasalesTicket.module.scss'
 
@@ -15,13 +15,16 @@ export const AviasalesTicket = () => {
   const [isTicketsLoading, setIsTicketsLoading] = useState(true)
   const selectedFilters = useSelector((state) => state.checkboxes)
   const selectedFilter = useSelector((state) => state.filters.selectedFilter)
+  const [displayedTickets, setDisplayedTickets] = useState(5)
   const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchTickets = async () => {
       try {
+        setTimeout(() => {
+          setIsTicketsLoading(false)
+        }, 1000)
         dispatch(getTickets())
-        setIsTicketsLoading(false)
       } catch (error) {
         console.error(error)
         setIsTicketsLoading(false)
@@ -29,7 +32,8 @@ export const AviasalesTicket = () => {
     }
     fetchTickets()
   }, [dispatch, selectedFilters])
-  // Функция для сортировки билетов
+
+  // Код сортировки билетов
   const sortTickets = (allTickets, sortBy) => {
     if (!sortBy || sortBy === 'none') {
       return allTickets
@@ -50,13 +54,12 @@ export const AviasalesTicket = () => {
           return totalDurationA - totalDurationB
         })
       case 'optimal':
-        // Добавьте свою логику сортировки для оптимального фильтра
         return allTickets
       default:
         return allTickets
     }
   }
-  // Фильтер билетов
+  // Код фильтрации билетов
 
   const filteredTickets = (allTickets, activeFilters, selectedFilter) =>
     allTickets.filter((ticket) => {
@@ -99,12 +102,19 @@ export const AviasalesTicket = () => {
     filteredTickets(tickets, selectedFilters, selectedFilter),
     selectedFilter,
   )
-
   console.log('filteredAndSorted', filteredAndSorted)
+  const handleShowMoreTickets = () => {
+    setDisplayedTickets((prevDisplayedTickets) => prevDisplayedTickets + 5)
+  }
   return (
     <>
       {isTicketsLoading ? (
-        <div>Loading...</div>
+        <div className={clsx(classes['aviasales__ticket-large'])}>
+          <Spin
+            className={clsx(classes['aviasales__ticket-large__spin'])}
+            size="large"
+          />
+        </div>
       ) : error ? (
         <div>Error: {error.message}</div>
       ) : filteredAndSorted.length === 0 ? (
@@ -117,9 +127,15 @@ export const AviasalesTicket = () => {
         </div>
       ) : (
         <>
-          {filteredAndSorted.map((ticket) => (
+          {filteredAndSorted.slice(0, displayedTickets).map((ticket) => (
             <AviasalesTicketList ticket={ticket} key={uuidv1()} />
           ))}
+          <button
+            className={clsx(classes['aviasales__show-more'])}
+            onClick={handleShowMoreTickets}
+          >
+            показать еще 5 билетов!
+          </button>
         </>
       )}
     </>

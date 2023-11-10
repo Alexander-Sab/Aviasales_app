@@ -16,7 +16,7 @@ export const App = () => {
         <div className={clsx(classes.airTickets)}>
           <CategoryFilterTicket />
           <AviasalesTicket />
-          <ShowMore />
+          {/* <ShowMore /> */}
         </div>
       </div>
     </div>
