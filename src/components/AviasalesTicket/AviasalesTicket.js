@@ -116,10 +116,25 @@ export const AviasalesTicket = () => {
           />
         </div>
       ) : error ? (
-        <div>Error: {error.message}</div>
+        <div className={clsx(classes['aviasales__ticket-error'])}>
+          <div
+            className={clsx(
+              classes['viasales__ticket-error__offline-icons'],
+              classes.icons,
+            )}
+          ></div>
+          <p className={clsx(classes['aviasales__ticket-error__offline-text'])}>
+            Отсудствует интернет!
+          </p>
+        </div>
       ) : filteredAndSorted.length === 0 ? (
         <div className={clsx(classes['aviasales__ticket-error'])}>
-          <div className={clsx(classes['viasales__ticket-error__icons'])}></div>
+          <div
+            className={clsx(
+              classes['viasales__ticket-error__icons'],
+              classes.icons,
+            )}
+          ></div>
           <p className={clsx(classes['aviasales__ticket-error__text'])}>
             К сожалению, билетов по вашему запросу не найдено. <br /> Попробуйте
             изменить параметры поиска или повторить позже.

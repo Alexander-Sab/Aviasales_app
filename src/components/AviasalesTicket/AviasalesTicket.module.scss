@@ -1,14 +1,7 @@
 .aviasales__ticket-large {
     width: 290px;
-    display: block;
-    border-radius: 5px;
-    border: 2px solid;
-    border-image: linear-gradient(to right, rgba(255, 0, 0, 1), rgba(0, 255, 0, 1), rgba(0, 0, 255, 1));
-    border-image-slice: 1;
-    background-color: rgba(243, 247, 250, 1);
-    padding-bottom: 20px;
     margin: 0 auto;
-    margin-bottom: 20px;
+
   }
 
 @media(min-width: 768px) {
@@ -23,16 +16,24 @@
 
 .aviasales__ticket-large__spin {
     padding-top: 15px;
+    padding-left: 110px;
      margin: 0 auto;
+}
+
+@media(min-width: 768px) {
+    .aviasales__ticket-large__spin {
+        padding-left: 0px;
+    }
 }
 
 .aviasales__ticket-error {
     width: 290px;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
     border-radius: 5px;
-    border: 2px solid #FFC634;
+    border: 1px solid #FFC634;
     background-color: rgba(255, 255, 255, 1);
-    padding-bottom: 20px;
     margin: 0 auto;
     margin-bottom: 20px;
 }
@@ -40,31 +41,70 @@
 @media(min-width: 768px) {
     .aviasales__ticket-error {
        width: 502px;
-       display: flex;
-       justify-content: space-between;
-       gap: 15px;
-       padding: 15;
+       align-items: center;
        
     }
-    .aviasales__ticket-error__text {
-        text-transform: none;
-        font-weight: normal;
-        font-size: 15px;
-        line-height: 17px;
-        color: #4a4a4a;
-        letter-spacing: 0.5px;
+}
+.aviasales__ticket-error__text {
+    text-transform: none;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 17px;
+    color: #4a4a4a;
+    letter-spacing: 0.5px;
+    margin: 0;
     }
+
+.aviasales__ticket-error__offline-text {
+    display: inline;
+    text-transform: none;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 17px;
+    color: #4a4a4a;
+    letter-spacing: 0.5px;
+    padding-top: 6px;
+    margin: 0 auto;
+    }
+
+@media(min-width: 768px) {
+    .aviasales__ticket-error__offline-text {
+        padding-top: 0px;
+        }
+     }    
+
+.icons {
+    background-color: rgba(255, 255, 255, 1);
+    background-image: url("../../../public/img/error.svg") ;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.viasales__ticket-error__icons {
+    width: 26px;
+    height: 30px;
+    background-size: 30px;
+    margin-left: 10px;
+    margin-top: 16px;
+    }
+
+@media(min-width: 768px) {
     .viasales__ticket-error__icons {
         width: 60px;
         height: 91px;
-        background-color: rgba(255, 255, 255, 1);
-        background-image: url("../../../public/img/error.svg") ;
-        background-repeat: no-repeat;
-        background-position: center;
         background-size: 50px;
-        flex-shrink: 0;
+        margin: 0;
+        }
     }
-}
+
+.viasales__ticket-error__offline-icons {
+    width: 26px;
+    height: 30px;
+    background-size: 30px;
+    margin-left: 10px;
+    }
+
 
 .aviasales__show-more {
     width: 290px;
@@ -90,3 +130,4 @@
         width: 502px;
     }
 }
+

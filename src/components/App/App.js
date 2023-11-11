@@ -1,9 +1,9 @@
 import clsx from 'clsx'
+import { Offline } from 'react-detect-offline'
 
 import FilterTransplants from '../FilterTransplants'
 import CategoryFilterTicket from '../CategoryFilterTicket'
 import AviasalesTicket from '../AviasalesTicket'
-import ShowMore from '../ShowMore'
 
 import classes from './App.module.scss'
 
@@ -16,9 +16,13 @@ export const App = () => {
         <div className={clsx(classes.airTickets)}>
           <CategoryFilterTicket />
           <AviasalesTicket />
-          {/* <ShowMore /> */}
         </div>
       </div>
+      <Offline>
+        <p className={clsx(classes['aviasales-offline'])}>
+          Вы находитесь в автономном режиме.
+        </p>
+      </Offline>
     </div>
   )
 }
