@@ -4,14 +4,13 @@ import { v1 as uuidv1 } from 'uuid'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { getTickets } from '../../store/actions'
+import { getTickets } from '../../services/AviasalesServices'
 import AviasalesTicketList from '../AviasalesTicketList'
 
 import classes from './AviasalesTicket.module.scss'
 
 export const AviasalesTicket = () => {
   const { tickets, loading, error } = useSelector((state) => state.tickets)
-  console.log('AviasalesTicket - tickets', tickets)
   const [isTicketsLoading, setIsTicketsLoading] = useState(true)
   const selectedFilters = useSelector((state) => state.checkboxes)
   const selectedFilter = useSelector((state) => state.filters.selectedFilter)
@@ -33,7 +32,6 @@ export const AviasalesTicket = () => {
     fetchTickets()
   }, [dispatch, selectedFilters])
 
-  // Код сортировки билетов
   const sortTickets = (allTickets, sortBy) => {
     if (!sortBy || sortBy === 'none') {
       return allTickets
@@ -59,7 +57,6 @@ export const AviasalesTicket = () => {
         return allTickets
     }
   }
-  // Код фильтрации билетов
 
   const filteredTickets = (allTickets, activeFilters, selectedFilter) =>
     allTickets.filter((ticket) => {
@@ -97,15 +94,15 @@ export const AviasalesTicket = () => {
       return false
     })
 
-  // Сохраняем отфильтрованные и отсортированные билеты в переменную
-  const filteredAndSorted = sortTickets(
+  const filteredAndSortedTickets = sortTickets(
     filteredTickets(tickets, selectedFilters, selectedFilter),
     selectedFilter,
   )
-  console.log('filteredAndSorted', filteredAndSorted)
+
   const handleShowMoreTickets = () => {
     setDisplayedTickets((prevDisplayedTickets) => prevDisplayedTickets + 5)
   }
+
   return (
     <>
       {isTicketsLoading ? (
@@ -127,7 +124,7 @@ export const AviasalesTicket = () => {
             Отсудствует интернет!
           </p>
         </div>
-      ) : filteredAndSorted.length === 0 ? (
+      ) : filteredAndSortedTickets.length === 0 ? (
         <div className={clsx(classes['aviasales__ticket-error'])}>
           <div
             className={clsx(
@@ -142,7 +139,7 @@ export const AviasalesTicket = () => {
         </div>
       ) : (
         <>
-          {filteredAndSorted.slice(0, displayedTickets).map((ticket) => (
+          {filteredAndSortedTickets.slice(0, displayedTickets).map((ticket) => (
             <AviasalesTicketList ticket={ticket} key={uuidv1()} />
           ))}
           <button
@@ -156,3 +153,5 @@ export const AviasalesTicket = () => {
     </>
   )
 }
+
+export default AviasalesTicket

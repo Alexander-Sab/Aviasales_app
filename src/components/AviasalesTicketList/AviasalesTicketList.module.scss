@@ -10,15 +10,8 @@
 
 @media(min-width: 768px) {
     .aviasales__ticket {
-       width: 502px;
-       
+       width: 502px;     
     }
-}
-
-
-
-.ticket {
-
 }
 
 .ticket__header {
@@ -59,8 +52,15 @@ margin-bottom: 20px;
     padding-right: 20px;
 }
 
+@media(min-width: 768px) {
+    .ticket__section-info {
+        width: 75px;
+        height: 34px;
+        text-wrap: nowrap;
+    }
+}
 .ticket__section-info--name {
-    font-size: 10px;
+    font-size: 8px;
     font-weight: 600;
     line-height: 18px;
     letter-spacing: 0.5px;
@@ -69,11 +69,23 @@ margin-bottom: 20px;
     color: rgba(160, 176, 185, 1);
 }
 
+@media(min-width: 768px) {
+    .ticket__section-info--name {
+        font-size: 10px;
+    }
+}
+
 .ticket__section-info--value {
-    font-size: 12px;
+    font-size: 8px;
     font-weight: 600;
     line-height: 21px;
     letter-spacing: 0px;
     text-align: left;
     color: rgba(74, 74, 74, 1);
+}
+
+@media(min-width: 768px) {
+    .ticket__section-info--value {
+        font-size: 12px;
+    }
 }

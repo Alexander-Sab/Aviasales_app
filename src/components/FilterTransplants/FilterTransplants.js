@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { getTickets } from '../../store/actions'
+import { getTickets } from '../../services/AviasalesServices'
 import {
   setCheckboxValue,
   toggleAllCheckbox,
